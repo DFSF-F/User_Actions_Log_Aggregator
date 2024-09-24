@@ -2,14 +2,17 @@ import os
 import sys
 import pandas as pd
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
 
-INPUT_DIR = './data/input/'
-OUTPUT_DIR =  './data/output'
+load_dotenv()
 
-def calculate_aggregates(target_date_str):
-    target_date = datetime.strptime(target_date_str, "%Y-%m-%d")
+INPUT_DIR = os.getenv('INPUT_DIR')
+OUTPUT_DIR = os.getenv('OUTPUT_DIR')
 
-    start_date = target_date - timedelta(days=6)
+
+def calculate_aggregates(end_date):
+    end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
+    start_date = end_date - timedelta(days=6)
 
     data_frames = []
     for i in range(7):
@@ -17,7 +20,7 @@ def calculate_aggregates(target_date_str):
         file_path = os.path.join(INPUT_DIR, current_date.strftime("%Y-%m-%d") + ".csv")
 
         if os.path.exists(file_path):
-            df = pd.read_csv(file_path)
+            df = pd.read_csv(file_path, header=None, names=['email', 'action', 'dt'])
             data_frames.append(df)
         else:
             print(f"Файл не найден: {file_path}")
@@ -32,7 +35,7 @@ def calculate_aggregates(target_date_str):
 
     aggregated_data.columns = ['email', 'create_count', 'read_count', 'update_count', 'delete_count']
 
-    output_file = os.path.join(OUTPUT_DIR, target_date_str + ".csv")
+    output_file = os.path.join(OUTPUT_DIR, str(end_date) + ".csv")
     aggregated_data.to_csv(output_file, index=False)
     print(f"Агрегированный файл записан: {output_file}")
 

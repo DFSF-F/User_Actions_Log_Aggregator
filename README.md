@@ -45,8 +45,9 @@ The final table will include the following columns:
 
 ### 2. Set up the environment
 
-  `python3 -m venv venv
-source venv/bin/activate  # For MacOS/Linux`
+  `python3 -m venv venv`
+  
+   `source venv/bin/activate  # For MacOS/Linux`
 
 ### 3. Install the dependencies
 

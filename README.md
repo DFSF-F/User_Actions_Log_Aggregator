@@ -1,5 +1,5 @@
 <p align="center">
-      <img src="https://i.ibb.co/6gd7Wnj/Log-Aggregation.jpgm" width="726">
+      <img src="https://i.ibb.co/Wn8gb8D/2024-09-27-14-07-28.png">
 </p>
 
 
